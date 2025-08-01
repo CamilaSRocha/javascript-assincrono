@@ -80,6 +80,20 @@ inputTags.addEventListener("keypress", async (evento) => {
     }
 })
 
+const botaoPublicar = document.querySelector(".butao-publicar");
+
+botaoPublicar.addEventListener("click", async (evento) => {
+    evento.preventDefault();
+
+    const nomeDoProjeto = document.getElementById("nome");
+    const descricaoDoProjeto = document.getElementById("descricao");
+    const tagsProjeto = Array.from(listaTags.querySelectorAll("p")).map((tag) => tag.textContent);
+
+    console.log(nomeDoProjeto);
+    console.log(descricaoDoProjeto);
+    console.log(tagsProjeto);
+})
+
 document.getElementById('imageUpload').addEventListener('change', function(event) {
     var file = event.target.files[0];
     if (!file.type.match('image/png') && !file.type.match('image/jpeg')) {
