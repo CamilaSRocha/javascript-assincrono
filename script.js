@@ -60,6 +60,16 @@ listaTags.addEventListener("click", (evento) => {
     }
 })
 
+const tagsDisponiveis = ["Front-end", "Programação", "Data Science", "Full-stack", "HTML", "CSS", "JavaScript"];
+
+async function verificaTagsDisponiveis(tagTexto) {
+    return new Promise((resolve) => {
+        setTimeout(() => {
+            resolve(tagsDisponiveis.includes(tagTexto));
+        }, 1000)    
+   }) 
+}
+
 document.getElementById('imageUpload').addEventListener('change', function(event) {
     var file = event.target.files[0];
     if (!file.type.match('image/png') && !file.type.match('image/jpeg')) {
