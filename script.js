@@ -40,19 +40,6 @@ inputUpload.addEventListener("change", async (evento) => {
 const inputTags = document.getElementById("input-tags")
 const listaTags = document.getElementById("lista-tags")
 
-inputTags.addEventListener("keypress", (evento) => {
-    if (evento.key === "Enter") {
-        evento.preventDefault();
-        const tagTexto = inputTags.value.trim();
-        if (tagTexto !== "") {
-            const novaTag = document.createElement("li");
-            novaTag.innerHTML = `<p>${tagTexto}</p> <img src="img/close-black.svg" class="remove-tag">`
-            listaTags.appendChild(novaTag);
-            inputTags.value = "";
-        }
-    }
-})
-
 listaTags.addEventListener("click", (evento) => {
     if (evento.target.classList.contains("remove-tag")) {
         const tagQueQueremosRemover = evento.target.parentElement;
@@ -60,7 +47,7 @@ listaTags.addEventListener("click", (evento) => {
     }
 })
 
-const tagsDisponiveis = ["Front-end", "Programação", "Data Science", "Full-stack", "HTML", "CSS", "JavaScript"];
+const tagsDisponiveis = ["Front-end", "Back-end", "Programação", "Data Science", "Full-stack", "HTML", "CSS", "JavaScript"];
 
 async function verificaTagsDisponiveis(tagTexto) {
     return new Promise((resolve) => {
@@ -69,6 +56,29 @@ async function verificaTagsDisponiveis(tagTexto) {
         }, 1000)    
    }) 
 }
+
+inputTags.addEventListener("keypress", async (evento) => {
+    if (evento.key === "Enter") {
+        evento.preventDefault();
+        const tagTexto = inputTags.value.trim();
+        if (tagTexto !== "") {
+            try {
+                const tagExiste = await verificaTagsDisponiveis(tagTexto);
+                if (tagExiste) {
+                    const novaTag = document.createElement("li");
+                    novaTag.innerHTML = `<p>${tagTexto}</p> <img src="img/close-black.svg" class="remove-tag">`
+                    listaTags.appendChild(novaTag);
+                    inputTags.value = "";
+                } else {
+                    alert("Tag não foi encontrada.");
+                }
+            } catch (error) {
+                console.error("Erro ao verificar a existência da tag.");
+                alert("Erro ao verificar a existência da tag. Verifique o console.")
+            }
+        }
+    }
+})
 
 document.getElementById('imageUpload').addEventListener('change', function(event) {
     var file = event.target.files[0];
