@@ -53,6 +53,13 @@ inputTags.addEventListener("keypress", (evento) => {
     }
 })
 
+listaTags.addEventListener("click", (evento) => {
+    if (evento.target.classList.contains("remove-tag")) {
+        const tagQueQueremosRemover = evento.target.parentElement;
+        listaTags.removeChild(tagQueQueremosRemover)
+    }
+})
+
 document.getElementById('imageUpload').addEventListener('change', function(event) {
     var file = event.target.files[0];
     if (!file.type.match('image/png') && !file.type.match('image/jpeg')) {
