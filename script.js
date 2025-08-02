@@ -82,20 +82,8 @@ inputTags.addEventListener("keypress", async (evento) => {
 
 const botaoPublicar = document.querySelector(".butao-publicar");
 
-botaoPublicar.addEventListener("click", async (evento) => {
-    evento.preventDefault();
-
-    const nomeDoProjeto = document.getElementById("nome");
-    const descricaoDoProjeto = document.getElementById("descricao");
-    const tagsProjeto = Array.from(listaTags.querySelectorAll("p")).map((tag) => tag.textContent);
-
-    console.log(nomeDoProjeto);
-    console.log(descricaoDoProjeto);
-    console.log(tagsProjeto);
-})
-
 async function publicarProjeto(nomeDoProjeto, descricaoDoProjeto, tagsProjeto) {
-    return new Promise((resolve), reject) => {
+    return new Promise((resolve, reject) => {
         setTimeout(()=> {
             const deuCerto = Math.random() > 0.5;
 
@@ -105,18 +93,37 @@ async function publicarProjeto(nomeDoProjeto, descricaoDoProjeto, tagsProjeto) {
                 reject("Erro ao publicar o projeto.")
             }
         }, 2000)
-    }
+    })
 }
 
-document.getElementById('imageUpload').addEventListener('change', function(event) {
-    var file = event.target.files[0];
-    if (!file.type.match('image/png') && !file.type.match('image/jpeg')) {
-        alert('Por favor, selecione uma imagem PNG ou JPEG.');
-        return;
+botaoPublicar.addEventListener("click", async (evento) => {
+    evento.preventDefault();
+
+    const nomeDoProjeto = document.getElementById("nome").value;
+    const descricaoDoProjeto = document.getElementById("descricao").value;
+    const tagsProjeto = Array.from(listaTags.querySelectorAll("p")).map((tag) => tag.textContent);
+
+    try {
+        const resultado = await publicarProjeto(nomeDoProjeto, descricaoDoProjeto, tagsProjeto);
+        console.log(resultado);
+        alert("Deu tudo certo!")
+    } catch (error) {
+        console.log("Deu errado: ", error)
+        alert("Deu tudo errado!");
     }
 
-    if (file.size > 2 * 1024 * 1024) {
-        alert('A imagem deve ter no máximo 2MB.');
-        return;
-    }
+})
+
+const botaoDescartar = document.querySelector(".botao-descartar")
+
+botaoDescartar.addEventListener("click", (evento) => {
+    evento.preventDefault();
+
+    const formulario = document.querySelector("form");
+    formulario.reset();
+
+    imagemPrincipal.src = "/img/imagem1.png";
+    nomeDaImagem.textContent = "image_projeto.png";
+
+    listaTags.innerHTML = "";
 })
