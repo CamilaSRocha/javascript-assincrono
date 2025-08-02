@@ -94,6 +94,20 @@ botaoPublicar.addEventListener("click", async (evento) => {
     console.log(tagsProjeto);
 })
 
+async function publicarProjeto(nomeDoProjeto, descricaoDoProjeto, tagsProjeto) {
+    return new Promise((resolve), reject) => {
+        setTimeout(()=> {
+            const deuCerto = Math.random() > 0.5;
+
+            if (deuCerto) {
+                resolve("Projeto publicado com sucesso!")
+            } else {
+                reject("Erro ao publicar o projeto.")
+            }
+        }, 2000)
+    }
+}
+
 document.getElementById('imageUpload').addEventListener('change', function(event) {
     var file = event.target.files[0];
     if (!file.type.match('image/png') && !file.type.match('image/jpeg')) {
