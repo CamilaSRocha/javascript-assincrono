@@ -80,7 +80,7 @@ inputTags.addEventListener("keypress", async (evento) => {
     }
 })
 
-const botaoPublicar = document.querySelector(".butao-publicar");
+const botaoPublicar = document.querySelector(".botao-publicar");
 
 async function publicarProjeto(nomeDoProjeto, descricaoDoProjeto, tagsProjeto) {
     return new Promise((resolve, reject) => {
